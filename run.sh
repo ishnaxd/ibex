@@ -1,23 +1,29 @@
 #!/bin/bash
 
 # Run make command to compile C code
-make -C examples/sw/simple_system/hello_test 
+
+cd examples/sw/simple_system/nnom
+make clean
+cd ../../../../
+make -C examples/sw/simple_system/nnom 
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then
     echo "Compilation successful."
 
     # Execute the compiled program
-    ./build/lowrisc_ibex_ibex_simple_system_0/sim-verilator/Vibex_simple_system --meminit=ram,./examples/sw/simple_system/hello_test/hello_test.elf
+    ./build/lowrisc_ibex_ibex_simple_system_0/sim-verilator/Vibex_simple_system --meminit=ram,./examples/sw/simple_system/nnom/nnom_.elf
 
     # Check if program execution was successful
     if [ $? -eq 0 ]; then
         echo "Program execution successful."
 
         # Run Python script
-        cd examples/sw/simple_system/hello_test
+        cd examples/sw/simple_system/nnom
 
-        riscv32-unknown-elf-objdump -d hello_test.elf > hello_test_dump.txt
+        riscv32-unknown-elf-objdump -d nnom_.elf > nnom_dump.txt
+        riscv32-unknown-elf-objdump -Dhx nnom_.elf > nnom_dump.dis
+        
 
         if [ $? -eq 0 ]; then
             echo "obj dump successful."
