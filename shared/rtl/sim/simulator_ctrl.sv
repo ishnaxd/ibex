@@ -76,9 +76,10 @@ module simulator_ctrl #(
             end
           end
           SIM_CTRL_ADDR: begin
+            //if ((be_i[0] & wdata_i[0]) && (sim_finish == 'b0)) begin
             if ((be_i[0] & wdata_i[0]) && (sim_finish == 'b0)) begin
-              $display("Terminating simulation by software request.");
-              sim_finish <= 3'b001;
+              //$display("Terminating simulation by software request.");
+              //sim_finish <= 3'b001;
             end
           end
           default: ;
@@ -87,11 +88,11 @@ module simulator_ctrl #(
     end
 
     if (sim_finish != 'b0) begin
-      sim_finish <= sim_finish + 1;
+      //sim_finish <= sim_finish + 1;
     end
-    if (sim_finish >= 3'b010) begin
-      $finish;
-    end
+    //if (sim_finish >= 3'b010) begin
+      //$finish;
+    //end
   end
 
   assign rdata_o = '0;
